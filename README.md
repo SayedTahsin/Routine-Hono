@@ -11,4 +11,3 @@ npm run deploy
 - [ ] write Note API
 - [ ] write User API
 - [ ] cron triggers
-- [ ] 

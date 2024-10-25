@@ -11,6 +11,10 @@ database_id = "9934791c-d9e6-4d52-a89d-74dd0d605fdc"
 [triggers]
 crons = ["0 0 * * *"]
 
+[observability]
+enabled = true
+head_sampling_rate = 1
+
 # [vars]
 # MY_VAR = "my-variable"
 
@@ -25,6 +29,3 @@ crons = ["0 0 * * *"]
 # [ai]
 # binding = "AI"
 
-# [observability]
-# enabled = true
-# head_sampling_rate = 1

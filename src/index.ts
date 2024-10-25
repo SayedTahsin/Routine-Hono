@@ -1,8 +1,9 @@
-import { Hono } from "hono";
+import { Env, Hono } from "hono";
 import taskRoutes from "./routes/taskRoutes";
 import noteRoutes from "./routes/noteRoutes";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
+import { updateTasksByDay } from "./controllers/taskController";
 import { checkAuth } from "./middlewares/checkAuth";
 
 type Bindings = {
@@ -25,4 +26,9 @@ app.get("/", (c) => {
   return c.text("Lets Go");
 });
 
-export default app;
+export default {
+  app,
+  async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext) {
+    console.log({ cron: event, env, ctx: ctx.waitUntil });
+  },
+};

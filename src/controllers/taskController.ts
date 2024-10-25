@@ -57,3 +57,19 @@ export const deleteTask = async (c: Context) => {
     return c.json({ success: false, message: e }, 500);
   }
 };
+
+export const updateTasksByDay = async (c: Context) => {
+  try {
+    const today = new Date().toLocaleString("en-US", { weekday: "long" });
+
+    const query = `UPDATE Tasks SET status = false WHERE category = ?`;
+    await c.env.DB.prepare(query).bind(today).run();
+
+    return c.json({
+      success: true,
+      message: `Tasks with category ${today} updated successfully`,
+    });
+  } catch (e) {
+    return c.json({ success: false, message: e }, 500);
+  }
+};

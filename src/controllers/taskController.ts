@@ -58,18 +58,23 @@ export const deleteTask = async (c: Context) => {
   }
 };
 
-export const updateTasksByDay = async (c: Context) => {
+export const updateTasksByDay = async (DB: D1Database) => {
   try {
-    const today = new Date().toLocaleString("en-US", { weekday: "long" });
+    // Get yesterday's day name
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const dayName = yesterday
+      .toLocaleString("en-US", { weekday: "long" })
+      .toLowerCase();
 
     const query = `UPDATE Tasks SET status = false WHERE category = ?`;
-    await c.env.DB.prepare(query).bind(today).run();
+    await DB.prepare(query).bind(dayName).run();
 
-    return c.json({
+    return {
       success: true,
-      message: `Tasks with category ${today} updated successfully`,
-    });
+      message: `Tasks with category ${dayName} updated successfully`,
+    };
   } catch (e) {
-    return c.json({ success: false, message: e }, 500);
+    return { success: false, message: e };
   }
 };

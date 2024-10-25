@@ -1,4 +1,4 @@
-import { Env, Hono } from "hono";
+import { Hono } from "hono";
 import taskRoutes from "./routes/taskRoutes";
 import noteRoutes from "./routes/noteRoutes";
 import userRoutes from "./routes/userRoutes";
@@ -28,7 +28,7 @@ app.get("/", (c) => {
 
 export default {
   app,
-  async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext) {
-    console.log({ cron: event, env, ctx: ctx.waitUntil });
+  async scheduled(event: ScheduledEvent, env: Bindings, ctx: ExecutionContext) {
+    ctx.waitUntil(updateTasksByDay(env.DB));
   },
 };

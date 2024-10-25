@@ -25,5 +25,5 @@ export const login = async (c: Context) => {
 
 export const logout = (c: Context) => {
   deleteCookie(c, "routineApp");
-  return c.json("Log out Successfull", 200);
+  return c.json("Logged out Successfully", 200);
 };

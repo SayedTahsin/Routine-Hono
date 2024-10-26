@@ -63,13 +63,13 @@ export const updateTasksByDay = async (DB: D1Database) => {
     // Get yesterday's day name
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
+
     const dayName = yesterday
-      .toLocaleString("en-US", { weekday: "long" })
+      .toLocaleDateString("en-US", { weekday: "long" })
       .toLowerCase();
 
     const query = `UPDATE Tasks SET status = false WHERE category = ?`;
     await DB.prepare(query).bind(dayName).run();
-    console.log(`Taks Updated for ${yesterday}`);
     return {
       success: true,
       message: `Tasks with category ${dayName} updated successfully`,

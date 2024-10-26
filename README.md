@@ -12,4 +12,5 @@ npm run deploy
 - [x] write User API
 - [x] write Auth Route
 - [x] Auth Middleware
-- [ ] cron triggers
+- [x] cron triggers
+- [ ] Deployed on Cloudflare-workers

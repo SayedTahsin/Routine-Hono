@@ -27,7 +27,9 @@ app.get("/", (c) => {
 });
 
 export default {
-  app,
+  async fetch(request: Request, env: Bindings, ctx: ExecutionContext) {
+    return app.fetch(request, env, ctx);
+  },
   async scheduled(event: ScheduledEvent, env: Bindings, ctx: ExecutionContext) {
     ctx.waitUntil(updateTasksByDay(env.DB));
   },

@@ -15,7 +15,6 @@ const app = new Hono<{ Bindings: Bindings }>();
 
 app.use("/api/tasks/*", checkAuth);
 app.use("/api/notes/*", checkAuth);
-app.use("/api/users/*", checkAuth);
 
 app.route("/api/tasks", taskRoutes);
 app.route("/api/notes", noteRoutes);

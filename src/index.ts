@@ -5,6 +5,7 @@ import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
 import { updateTasksByDay } from "./controllers/taskController";
 import { checkAuth } from "./middlewares/checkAuth";
+import { cors } from "hono/cors";
 
 type Bindings = {
   DB: D1Database;
@@ -13,18 +14,17 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>();
 
-app.use("*", async (c, next) => {
-  c.header("Access-Control-Allow-Origin", "http://localhost:5173"); // Adjust origin as needed
-  c.header("Access-Control-Allow-Credentials", "true");
-  c.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  c.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  if (c.req.method === "OPTIONS") {
-    return c.json({}, 204); // Respond to preflight requests
-  }
-
-  await next();
-});
+app.use(
+  "*",
+  cors({
+    origin: "http://localhost:5173",
+    allowHeaders: ["X-Custom-Header", "Upgrade-Insecure-Requests"],
+    allowMethods: ["POST", "GET", "OPTIONS"],
+    exposeHeaders: ["Content-Length", "X-Kuma-Revision"],
+    maxAge: 600,
+    credentials: true,
+  })
+);
 
 app.use("/api/tasks/*", checkAuth);
 app.use("/api/notes/*", checkAuth);

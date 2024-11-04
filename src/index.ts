@@ -13,6 +13,13 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>();
 
+app.use("*", async (c, next) => {
+  await next();
+  c.header("Access-Control-Allow-Origin", "*"); // Set to your frontend's URL in production, e.g., 'https://yourfrontend.com'
+  c.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  c.header("Access-Control-Allow-Headers", "Content-Type");
+});
+
 app.use("/api/tasks/*", checkAuth);
 app.use("/api/notes/*", checkAuth);
 

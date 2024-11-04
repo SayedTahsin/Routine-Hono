@@ -14,10 +14,16 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>();
 
 app.use("*", async (c, next) => {
+  c.header("Access-Control-Allow-Origin", "http://localhost:5173"); // Adjust origin as needed
+  c.header("Access-Control-Allow-Credentials", "true");
+  c.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  c.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  if (c.req.method === "OPTIONS") {
+    return c.json({}, 204); // Respond to preflight requests
+  }
+
   await next();
-  c.header("Access-Control-Allow-Origin", "http://localhost:5173");
-  c.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  c.header("Access-Control-Allow-Headers", "Content-Type");
 });
 
 app.use("/api/tasks/*", checkAuth);

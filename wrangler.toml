@@ -6,7 +6,7 @@ compatibility_flags = [ "nodejs_compat" ]
 [[d1_databases]]
 binding = "DB" 
 database_name = "routineApp"
-database_id = "9934791c-d9e6-4d52-a89d-74dd0d605fdc"
+database_id = "0791cbd6-a6db-47bd-b41a-954a480d7bd6"
 
 [triggers]
 crons = ["0 0 * * *"]

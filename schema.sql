@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS Users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     mail TEXT NOT NULL UNIQUE,
     name TEXT NOT NULL,
+    photoUrl TEXT,
     completedTasks INTEGER DEFAULT 0,
     totalTasks INTEGER DEFAULT 0
 );

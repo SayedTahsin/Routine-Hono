@@ -12,7 +12,7 @@ export const login = async (c: Context) => {
     };
     const secret = c.env.SECRET_KEY || "";
     const token = await sign(payload, secret);
-    setCookie(c, "routineApp", token, {
+    setCookie(c, "ROUTINEAPP", token, {
       secure: true,
       httpOnly: true,
     });
@@ -24,6 +24,6 @@ export const login = async (c: Context) => {
 };
 
 export const logout = (c: Context) => {
-  deleteCookie(c, "routineApp");
+  deleteCookie(c, "ROUTINEAPP");
   return c.json("Logged out Successfully", 200);
 };

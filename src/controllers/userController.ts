@@ -2,7 +2,7 @@ import { Context } from "hono";
 
 export const createUser = async (c: Context) => {
   try {
-    const { mail, name } = await c.req.json();
+    const { mail, name, photoUrl } = await c.req.json();
 
     const checkQuery = `SELECT COUNT(*) as count FROM Users WHERE mail = ?`;
     const checkResp = await c.env.DB.prepare(checkQuery).bind(mail).first();
@@ -11,8 +11,8 @@ export const createUser = async (c: Context) => {
       return c.json({ success: false, message: "Email already exists" }, 200); // 409 Conflict
     }
 
-    const query = `INSERT INTO Users (mail, name) VALUES (?, ?)`;
-    await c.env.DB.prepare(query).bind(mail, name).run();
+    const query = `INSERT INTO Users (mail, name, photoUrl) VALUES (?, ?, ?)`;
+    await c.env.DB.prepare(query).bind(mail, name, photoUrl).run();
     return c.json({ success: true, message: "User created successfully" });
   } catch (error) {
     return c.json({ success: false, message: error }, 500);

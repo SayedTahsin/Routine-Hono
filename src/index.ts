@@ -6,25 +6,20 @@ import authRoutes from "./routes/authRoutes";
 import { updateTasksByDay } from "./controllers/taskController";
 import { checkAuth } from "./middlewares/checkAuth";
 import { cors } from "hono/cors";
+import { secureHeaders } from "hono/secure-headers";
+import { prettyJSON } from "hono/pretty-json";
 
 type Bindings = {
   DB: D1Database;
   SECRET_KEY: string;
+  FRONT_END_URL: string;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
 
-app.use(
-  "*",
-  cors({
-    origin: "http://localhost:5173",
-    allowHeaders: ["X-Custom-Header", "Upgrade-Insecure-Requests"],
-    allowMethods: ["POST", "GET", "OPTIONS"],
-    exposeHeaders: ["Content-Length", "X-Kuma-Revision"],
-    maxAge: 600,
-    credentials: true,
-  })
-);
+app.use(secureHeaders());
+app.use(prettyJSON());
+app.use("*", cors());
 
 app.use("/api/tasks/*", checkAuth);
 app.use("/api/notes/*", checkAuth);

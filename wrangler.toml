@@ -15,8 +15,8 @@ crons = ["0 0 * * *"]
 enabled = true
 head_sampling_rate = 1
 
-# [vars]
-# MY_VAR = "my-variable"
+[vars]
+FRONT_END_URL = "http://localhost:5173"
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"

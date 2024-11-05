@@ -17,6 +17,7 @@ head_sampling_rate = 1
 
 [vars]
 FRONT_END_URL = "http://localhost:5173"
+SECRET_KEY="wcaw3v2312r"
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"

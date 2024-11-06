@@ -4,17 +4,16 @@ import { setCookie, deleteCookie } from "hono/cookie";
 
 export const login = async (c: Context) => {
   try {
-    const { mail, id } = await c.req.json();
+    const { mail } = await c.req.json();
     const payload = {
       mail,
-      id,
-      exp: Math.floor(Date.now() / 1000) + 60 * 4320,
     };
     const secret = c.env.SECRET_KEY || "";
     const token = await sign(payload, secret);
     setCookie(c, "ROUTINEAPP", token, {
       secure: true,
-      httpOnly: true,
+      httpOnly: false,
+      maxAge: 60 * 60 * 24 * 30,
     });
 
     return c.json("Log in Successfull", 201);

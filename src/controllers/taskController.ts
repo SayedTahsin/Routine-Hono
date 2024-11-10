@@ -63,16 +63,51 @@ export const updateTasksByDay = async (DB: D1Database) => {
     // Get yesterday's day name
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-
     const dayName = yesterday
       .toLocaleDateString("en-US", { weekday: "long" })
       .toUpperCase();
 
-    const query = `UPDATE Tasks SET status = false WHERE category = ?`;
-    await DB.prepare(query).bind(dayName).run();
+    const userMailsQuery = `SELECT DISTINCT mail FROM Tasks WHERE category = ?`;
+    const userMails = await DB.prepare(userMailsQuery).bind(dayName).all();
+
+    for (const user of userMails.results) {
+      const mail = user.mail;
+
+      const completedTasksQuery = `SELECT COUNT(*) AS completedCount FROM Tasks WHERE mail = ? AND category = ? AND status = true`;
+      const completedTasksResult = await DB.prepare(completedTasksQuery)
+        .bind(mail, dayName)
+        .first();
+      const completedTasks = Number(completedTasksResult?.completedCount) || 0;
+
+      const totalTasksQuery = `SELECT COUNT(*) AS totalCount FROM Tasks WHERE mail = ? AND category = ?`;
+      const totalTasksResult = await DB.prepare(totalTasksQuery)
+        .bind(mail, dayName)
+        .first();
+      const totalTasks = Number(totalTasksResult?.totalCount) || 0;
+
+      const currentUserStatsQuery = `SELECT completedTasks, totalTasks FROM Users WHERE mail = ?`;
+      const currentUserStats = await DB.prepare(currentUserStatsQuery)
+        .bind(mail)
+        .first();
+      const previousCompletedTasks =
+        Number(currentUserStats?.completedTasks) || 0;
+      const previousTotalTasks = Number(currentUserStats?.totalTasks) || 0;
+
+      const newCompletedTasks = previousCompletedTasks + completedTasks;
+      const newTotalTasks = previousTotalTasks + totalTasks;
+
+      const updateUserQuery = `UPDATE Users SET completedTasks = ?, totalTasks = ? WHERE mail = ?`;
+      await DB.prepare(updateUserQuery)
+        .bind(newCompletedTasks, newTotalTasks, mail)
+        .run();
+    }
+
+    const updateTasksQuery = `UPDATE Tasks SET status = false WHERE category = ?`;
+    await DB.prepare(updateTasksQuery).bind(dayName).run();
+
     return {
       success: true,
-      message: `Tasks with category ${dayName} updated successfully`,
+      message: `User task statistics and task statuses for category ${dayName} updated successfully.`,
     };
   } catch (e) {
     return { success: false, message: e };

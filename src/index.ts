@@ -21,12 +21,7 @@ app.use(secureHeaders());
 app.use(prettyJSON());
 app.use(
   "*",
-  cors({ origin: (_, c) => c.env.FRONT_END_URL, 
-        allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowHeaders: ['Content-Type', 'Authorization'],
-        credentials: true
-      }
-  )
+  cors({ origin: (_, c) => c.env.FRONT_END_URL, credentials: true })
 );
 
 app.use("/api/tasks/*", checkAuth);

@@ -17,7 +17,6 @@ head_sampling_rate = 1
 
 [vars]
 FRONT_END_URL = 'https://routine-lemon.vercel.app/' #http://localhost:5173
-SECRET_KEY=""
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"

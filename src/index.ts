@@ -23,7 +23,8 @@ app.use(
   "*",
   cors({ origin: (_, c) => c.env.FRONT_END_URL, 
         allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowHeaders: ['Content-Type', 'Authorization'] 
+        allowHeaders: ['Content-Type', 'Authorization'],
+        credentials: true
       }
   )
 );

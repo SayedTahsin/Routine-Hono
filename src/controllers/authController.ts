@@ -13,7 +13,7 @@ export const login = async (c: Context) => {
     setCookie(c, "ROUTINEAPP", token, {
       secure: true,
       httpOnly: false,
-      maxAge: 60 * 60 * 24 * 30,
+      expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000),
       path: "/",
       sameSite: "None",
     });

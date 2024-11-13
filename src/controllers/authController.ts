@@ -14,6 +14,8 @@ export const login = async (c: Context) => {
       secure: true,
       httpOnly: false,
       maxAge: 60 * 60 * 24 * 30,
+      path: "/",
+      sameSite: "None",
     });
 
     return c.json("Log in Successfull", 201);

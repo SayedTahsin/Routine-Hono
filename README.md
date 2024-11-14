@@ -14,4 +14,4 @@ npm run deploy
 - [x] Auth Middleware
 - [x] cron triggers
 - [x] Deployed on Cloudflare-workers
-- [ ] fix CORS error
+- [x] fix CORS error

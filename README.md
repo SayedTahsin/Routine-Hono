@@ -2,6 +2,8 @@
 Build with Hono.js in Cloudflare-workers environment. Deployed on Cloudflare-workers. Used D1 Sqlite Database, Bun as Package Manager, and Cron type trigger events for scheduling tasks.
 
 <a href="https://routine-lemon.vercel.app/">Front-end Deployed on Vercel</a>
+<br>
+<a href="https://github.com/SayedTahsin/Routine-Vue">Front-end Repo</a>
 
 ### Feature
 - Firebase user authentication

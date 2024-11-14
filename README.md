@@ -26,7 +26,7 @@ $ bun add -g wrangler
 $ git@github.com:SayedTahsin/Routine-Hono.git
 ```
 - create and execute D1 database: After creating db, you will get some valiable,
-  copy paste these variable in wrangler.toml file then apply.
+  copy paste these variable in wrangler.toml file then apply. (<a href="https://github.com/SayedTahsin/Cloudflare-Hono-D1">check this repo for understanding D1</a>)
 ```
 $ wrangler d1 create <db-name>
 $ wrangler d1 execute <db-name> --local --file=./schema.sql

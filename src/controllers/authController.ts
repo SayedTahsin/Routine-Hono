@@ -15,7 +15,6 @@ export const login = async (c: Context) => {
       httpOnly: false,
       expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000),
       path: "/",
-      sameSite: "None",
     });
 
     return c.json("Log in Successfull", 201);

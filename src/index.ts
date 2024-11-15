@@ -17,17 +17,10 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>();
 
-app.use("*", async (c, next) => {
-  c.header("Access-Control-Allow-Origin", c.env.FRONT_END_URL);
-  c.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  c.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  c.header("Access-Control-Allow-Credentials", "true");
-  if (c.req.method === "OPTIONS") {
-    return c.text("", 204);
-  }
-
-  await next();
-});
+app.use(
+  "*",
+  cors({ origin: (_, c) => c.env.FRONT_END_URL, credentials: true })
+);
 
 app.use(secureHeaders());
 app.use(prettyJSON());

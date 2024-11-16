@@ -13,13 +13,20 @@ type Bindings = {
   DB: D1Database;
   SECRET_KEY: string;
   FRONT_END_URL: string;
+  FRONT_END_URL_DEV: string;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
 
 app.use(
   "*",
-  cors({ origin: (_, c) => c.env.FRONT_END_URL, credentials: true })
+  cors({
+    origin: (_, c) =>
+      c.env.ENV === "production"
+        ? c.env.FRONT_END_URL
+        : c.env.FRONT_END_URL_DEV,
+    credentials: true,
+  })
 );
 
 app.use(secureHeaders());

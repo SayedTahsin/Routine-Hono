@@ -60,10 +60,8 @@ export const deleteTask = async (c: Context) => {
 
 export const updateTasksByDay = async (DB: D1Database) => {
   try {
-    // Get yesterday's day name
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const dayName = yesterday
+    const today = new Date();
+    const dayName = today
       .toLocaleDateString("en-US", { weekday: "long" })
       .toUpperCase();
 

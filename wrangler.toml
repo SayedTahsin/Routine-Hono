@@ -9,7 +9,7 @@ database_name = "routineApp"
 database_id = "df73bf62-462e-4cc7-b6db-3a6f5380583e"
 
 [triggers]
-crons = ["0 0 * * *"]
+crons = ["0 18 * * *"]
 
 [observability]
 enabled = true

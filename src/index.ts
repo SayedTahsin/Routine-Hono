@@ -14,6 +14,7 @@ type Bindings = {
   SECRET_KEY: string;
   FRONT_END_URL: string;
   FRONT_END_URL_DEV: string;
+  ENV: string;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -22,9 +23,9 @@ app.use(
   "*",
   cors({
     origin: (_, c) =>
-      c.env.ENV === "production"
-        ? c.env.FRONT_END_URL
-        : c.env.FRONT_END_URL_DEV,
+      c.env.ENV === "development"
+        ? c.env.FRONT_END_URL_DEV
+        : c.env.FRONT_END_URL,
     credentials: true,
   })
 );

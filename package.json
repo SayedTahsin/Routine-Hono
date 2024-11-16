@@ -1,9 +1,9 @@
 {
   "name": "cf-routine-app",
   "scripts": {
-    "dev": "ENV=development wrangler dev",
-    "build": "ENV=production wrangler publish",
-    "start": "ENV=production wrangler start",
+    "dev": "wrangler dev",
+    "build": "wrangler publish",
+    "start": "wrangler start",
     "deploy": "wrangler deploy --minify"
   },
   "dependencies": {

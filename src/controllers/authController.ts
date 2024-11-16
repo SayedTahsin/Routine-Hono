@@ -8,7 +8,7 @@ export const login = async (c: Context) => {
     const payload = {
       mail,
     };
-    const secret = c.env.SECRET_KEY || "";
+    const secret = c.env.SECRET_KEY || "n9bac021r1092nfq0912#123t12D$N029103";
     const token = await sign(payload, secret);
     setCookie(c, "ROUTINEAPP", token, {
       secure: true,

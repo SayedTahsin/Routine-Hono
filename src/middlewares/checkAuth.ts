@@ -9,8 +9,10 @@ export const checkAuth = async (c: Context, next: Next) => {
     if (!token) {
       return c.json({ message: "Unauthorized: No token provided" }, 401);
     }
-
-    const decoded = await verify(token, c.env.SECRET_KEY || "");
+    const decoded = await verify(
+      token,
+      c.env.SECRET_KEY || "n9bac021r1092nfq0912#123t12D$N029103"
+    );
 
     c.set("user", decoded);
 

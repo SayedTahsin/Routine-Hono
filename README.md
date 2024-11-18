@@ -41,6 +41,7 @@ $ git@github.com:SayedTahsin/Routine-Hono.git
 $ wrangler d1 create <db-name>
 $ wrangler d1 execute <db-name> --local --file=./schema.sql
 ```
+- need to set `ENV='development'` in wrangler.toml to avoid cors error in dev mode 
 
 - Run
 

@@ -16,6 +16,7 @@ export const login = async (c: Context) => {
       maxAge: 60 * 60 * 24 * 30,
       path: "/",
       sameSite: "None",
+      domain: c.env.ENV === "production" ? c.env.COOKIE_DOMAIN : "localhost",
     });
 
     return c.json("Log in Successfull", 201);

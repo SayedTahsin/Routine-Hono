@@ -19,6 +19,7 @@ head_sampling_rate = 1
 ENV='production'
 FRONT_END_URL = 'https://routine-lemon.vercel.app' 
 FRONT_END_URL_DEV = 'http://localhost:5173'
+COOKIE_DOMAIN="routine-lemon"
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
 # id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"

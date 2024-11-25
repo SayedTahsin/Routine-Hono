@@ -15,6 +15,7 @@ type Bindings = {
   FRONT_END_URL: string;
   FRONT_END_URL_DEV: string;
   ENV: string;
+  COOKIE_DOMAIN: string;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();

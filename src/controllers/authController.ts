@@ -16,8 +16,6 @@ export const login = async (c: Context) => {
       maxAge: 60 * 60 * 24 * 30,
       path: "/",
       sameSite: "None",
-      domain:
-        c.env.ENV === "development" ? "localhost" : "routine-lemon.vercel.app",
     });
 
     return c.json("Log in Successfull", 201);

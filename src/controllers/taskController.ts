@@ -100,9 +100,21 @@ export const updateTasksByDay = async (DB: D1Database) => {
         .run();
     }
 
-    const updateTasksQuery = `UPDATE Tasks SET status = false WHERE category = ?`;
-    await DB.prepare(updateTasksQuery).bind(dayName).run();
-
+    const weekdays = [
+      "SATURDAY",
+      "SUNDAY",
+      "MONDAY",
+      "TUESDAY",
+      "WEDNESDAY",
+      "THURSDAY",
+      "FRIDAY",
+    ];
+    if (dayName === "FRIDAY") {
+      weekdays.forEach(async (day) => {
+        const updateTasksQuery = `UPDATE Tasks SET status = false WHERE category = ?`;
+        await DB.prepare(updateTasksQuery).bind(day).run();
+      });
+    }
     return {
       success: true,
       message: `User task statistics and task statuses for category ${dayName} updated successfully.`,

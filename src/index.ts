@@ -4,7 +4,7 @@ import noteRoutes from "./routes/noteRoutes";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
 import { updateTasksByDay } from "./controllers/taskController";
-import { checkAuth } from "./middlewares/checkAuth";
+// import { checkAuth } from "./middlewares/checkAuth";
 import { cors } from "hono/cors";
 import { secureHeaders } from "hono/secure-headers";
 import { prettyJSON } from "hono/pretty-json";
@@ -34,8 +34,8 @@ app.use(
 app.use(secureHeaders());
 app.use(prettyJSON());
 
-app.use("/api/tasks/*", checkAuth);
-app.use("/api/notes/*", checkAuth);
+// app.use("/api/tasks/*", checkAuth);
+// app.use("/api/notes/*", checkAuth);
 
 app.route("/api/tasks", taskRoutes);
 app.route("/api/notes", noteRoutes);

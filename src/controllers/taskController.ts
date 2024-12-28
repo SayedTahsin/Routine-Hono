@@ -1,8 +1,14 @@
 import { Context } from "hono";
+import { extractEmailFromToken } from "../utils/jwtParser";
 
 export const createTask = async (c: Context) => {
   try {
-    const { text, status = false, mail, category } = await c.req.json();
+    const authHeader = c.req.header("Authorization") || "";
+    const mail = extractEmailFromToken(authHeader);
+    if (!mail) {
+      return c.json({ success: false, message: "Authentication Failed" }, 401);
+    }
+    const { text, status = false, category } = await c.req.json();
     const query = `INSERT INTO Tasks (text, status, mail, category) VALUES (?, ?, ?, ?)`;
     await c.env.DB.prepare(query).bind(text, status, mail, category).run();
     return c.json({ success: true, message: "Task created successfully" });
@@ -13,7 +19,11 @@ export const createTask = async (c: Context) => {
 
 export const getTasksByMail = async (c: Context) => {
   try {
-    const { mail } = c.req.param();
+    const authHeader = c.req.header("Authorization") || "";
+    const mail = extractEmailFromToken(authHeader);
+    if (!mail) {
+      return c.json({ success: false, message: "Authentication Failed" }, 401);
+    }
     const query = `SELECT * FROM Tasks WHERE mail = ?`;
     const result = await c.env.DB.prepare(query).bind(mail).all();
     return c.json(result);
@@ -24,8 +34,13 @@ export const getTasksByMail = async (c: Context) => {
 
 export const updateTask = async (c: Context) => {
   try {
+    const authHeader = c.req.header("Authorization") || "";
+    const mail = extractEmailFromToken(authHeader);
+    if (!mail) {
+      return c.json({ success: false, message: "Authentication Failed" }, 401);
+    }
     const { id } = c.req.param();
-    const { text, status, mail, category } = await c.req.json();
+    const { text, status, category } = await c.req.json();
 
     const query = `
     UPDATE Tasks 

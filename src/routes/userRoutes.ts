@@ -13,8 +13,8 @@ userRoutes.post("/", createUser);
 // userRoutes.get("/:mail", checkAuth, getUserByMail);
 // userRoutes.put("/:mail", checkAuth, updateUser);
 // userRoutes.delete("/:mail", checkAuth, deleteUser);
-userRoutes.get("/:mail", getUserByMail);
-userRoutes.put("/:mail", updateUser);
-userRoutes.delete("/:mail", deleteUser);
+userRoutes.get("/", getUserByMail);
+userRoutes.put("/", updateUser);
+userRoutes.delete("/", deleteUser);
 
 export default userRoutes;

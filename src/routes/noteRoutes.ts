@@ -9,7 +9,7 @@ import {
 const noteRoutes = new Hono();
 
 noteRoutes.post("/", createNote);
-noteRoutes.get("/:mail", getNotesByMail);
+noteRoutes.get("/", getNotesByMail);
 noteRoutes.put("/:id", updateNote);
 noteRoutes.delete("/:id", deleteNote);
 

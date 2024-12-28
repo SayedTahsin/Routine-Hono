@@ -9,7 +9,7 @@ import {
 const taskRoutes = new Hono();
 
 taskRoutes.post("/", createTask);
-taskRoutes.get("/:mail", getTasksByMail);
+taskRoutes.get("/", getTasksByMail);
 taskRoutes.put("/:id", updateTask);
 taskRoutes.delete("/:id", deleteTask);
 

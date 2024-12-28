@@ -1,4 +1,5 @@
 import { Context } from "hono";
+import { extractEmailFromToken } from "../utils/jwtParser";
 
 export const createUser = async (c: Context) => {
   try {
@@ -21,7 +22,11 @@ export const createUser = async (c: Context) => {
 
 export const getUserByMail = async (c: Context) => {
   try {
-    const { mail } = c.req.param();
+    const authHeader = c.req.header("Authorization") || "";
+    const mail = extractEmailFromToken(authHeader);
+    if (!mail) {
+      return c.json({ success: false, message: "Authentication Failed" }, 401);
+    }
     const query = `SELECT * FROM Users WHERE mail = ?`;
     const result = await c.env.DB.prepare(query).bind(mail).first();
     if (result) {
@@ -35,7 +40,11 @@ export const getUserByMail = async (c: Context) => {
 
 export const updateUser = async (c: Context) => {
   try {
-    const { mail } = c.req.param();
+    const authHeader = c.req.header("Authorization") || "";
+    const mail = extractEmailFromToken(authHeader);
+    if (!mail) {
+      return c.json({ success: false, message: "Authentication Failed" }, 401);
+    }
     const { name, completedTasks, totalTasks } = await c.req.json();
     const query = `UPDATE Users SET mail = COALESCE(?, mail), name = COALESCE(?, name), completedTasks = COALESCE(?, completedTasks), totalTasks = COALESCE(?, totalTasks) WHERE mail = ?`;
     await c.env.DB.prepare(query)
@@ -55,7 +64,11 @@ export const updateUser = async (c: Context) => {
 
 export const deleteUser = async (c: Context) => {
   try {
-    const { mail } = c.req.param();
+    const authHeader = c.req.header("Authorization") || "";
+    const mail = extractEmailFromToken(authHeader);
+    if (!mail) {
+      return c.json({ success: false, message: "Authentication Failed" }, 401);
+    }
     const query = `DELETE FROM Users WHERE mail = ?`;
     await c.env.DB.prepare(query).bind(mail).run();
     return c.json({ success: true, message: "User deleted successfully" });

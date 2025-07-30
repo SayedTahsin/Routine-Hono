@@ -9,10 +9,10 @@ Build with Hono.js in Cloudflare-workers environment. Deployed on Cloudflare-wor
 ### Feature
 
 - Firebase user authentication
-- JWT token based session manange
+- JWT token based session manange (Disabled due to domain issue)
 - Add Task with Different Pre-defined(weekdays) and custom categories.
-- Edit/Delete tasks
-- Resets Tasks Based on Schedule
+- In-line Edit/Delete tasks
+- Automatic Resets Tasks Based on Schedule
 - Calculate Consistency Percentage
 
 <a href="https://github.com/SayedTahsin/Hono-Bun-Mongo">Same project build with Hono.js on Bun Enviromnet & Used MongoDb</a>
